@@ -24,18 +24,18 @@ module "vpc" {
 #NAT Gateway module
 
 module "nat_gatway" {
-  source  = "git@github.com:shittus/terraform-modules.git//nat-gateway"
-  project_name = local.project_name
-  environment = local.environment
-  public_subnet_az1_id = module.vpc.public_subnet_az1_id
-  internet_gateway = module.vpc.internet_gateway
-  public_subnet_az2_id = module.vpc.public_subnet_az2_id
-  vpc_id = module.vpc.vpc_cidr
-  private_data_subnet_az1 = module.vpc.private_data_subnet_az1
-  availability_zone_1 = module.vpc.availability_zone_1
-  private_app_subnet_az1_id = module.vpc.private_app_subnet_az1_id
+  source                     = "git@github.com:shittus/terraform-modules.git//nat-gatway" 
+  project_name               = local.project_name
+  environment                = local.environment
+  public_subnet_az1_id       = module.vpc.public_subnet_az1_id
+  internet_gateway           = module.vpc.internet_gateway
+  public_subnet_az2_id       = module.vpc.public_subnet_az2_id
+  vpc_id                     = module.vpc.vpc_id
+  private_data_subnet_az1    = module.vpc.private_data_subnet_az1_id
+  availability_zone_1        = module.vpc.availability_zone_1
+  private_app_subnet_az1_id  = module.vpc.private_app_subnet_az1_id
   private_data_subnet_az1_id = module.vpc.private_data_subnet_az1_id
-  private_app_subnet_az2_id = module.vpc.private_app_subnet_az2_id
+  private_app_subnet_az2_id  = module.vpc.private_app_subnet_az2_id
   private_data_subnet_az2_id = module.vpc.private_data_subnet_az2_id
 
 
