@@ -24,7 +24,7 @@ module "vpc" {
 #NAT Gateway module
 
 module "nat_gatway" {
-  source                     = "git@github.com:shittus/terraform-modules.git//nat-gatway" 
+  source                     = "git@github.com:shittus/terraform-modules.git//nat-gatway"
   project_name               = local.project_name
   environment                = local.environment
   public_subnet_az1_id       = module.vpc.public_subnet_az1_id
@@ -40,4 +40,13 @@ module "nat_gatway" {
 
 
 
+}
+
+# create security group
+module "security-group" {
+  source       = "git@github.com:shittus/terraform-modules.git//security-group"
+  project_name = local.project_name
+  environment  = local.environment
+  vpc_id       = module.vpc.vpc_id
+  ssh_ip       = var.ssh_ip
 }
