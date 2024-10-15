@@ -76,16 +76,34 @@ module "ssl_certificate" {
 }
 
 # Application Load balancer
-  module "alb" {
-    source = "https://github.com/shittus/terraform-modules.git//alb"
-    project_name = var.project_name
-    environment = var.environment
-    alb_security_group_id = module.security-group.alb_security_group_id
-    public_subnet_az1_id = module.vpc.public_subnet_az1_id
-    public_subnet_az2_id =module.vpc.ublic_subnet_az2_id
-    target_type = var.target_type
-    vpc_id = module.vpc.vpc_id
-    validated_certificate_arn = module.ssl_certificate.validated_certificate_arn
-    
-  }
+module "alb" {
+  source                    = "git@github.com:shittus/terraform-modules.git//alb"
+  project_name              = var.project_name
+  environment               = var.environment
+  alb_security_group_id     = module.security-group.alb_security_group_id
+  public_subnet_az1_id      = module.vpc.public_subnet_az1_id
+  public_subnet_az2_id      = module.vpc.public_subnet_az2_id
+  target_type               = var.target_type
+  vpc_id                    = module.vpc.vpc_id
+  validated_certificate_arn = module.ssl_certificate.validated_certificate_arn
 
+}
+
+
+# create s3 bucket
+module "s3" {
+  source               = "git@github.com:shittus/terraform-modules.git//s3"
+  project_name         = local.project_name
+  env_file_bucket_name = var.env_file_bucket_name
+  env_file_name        = var.env_file_name
+
+}
+
+# create ecs iam role execution
+module "ecs-task-execution-role" {
+  source               = "git@github.com:shittus/terraform-modules.git//iam-role"
+  project_name         = local.project_name
+  env_file_bucket_name = module.s3.env_file_bucket_name
+  environment          = local.environment
+
+}
