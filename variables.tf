@@ -22,3 +22,6 @@ variable "database_instance_identifier" {}
 # ACM variables
 variable "domain_name" {}
 variable "alternative_names" {}
+
+#alb variables
+variable "target_type" {}
