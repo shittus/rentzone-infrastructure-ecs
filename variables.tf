@@ -29,3 +29,13 @@ variable "target_type" {}
 # s3 variables
 variable "env_file_bucket_name" {}
 variable "env_file_name" {}
+
+
+#ECS service and task definition
+
+variable "architecture" {}
+variable "container_image" {}
+
+
+
+# variable "" {}
